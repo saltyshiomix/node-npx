@@ -7,7 +7,7 @@ import {
   SpawnSyncOptionsWithStringEncoding,
   SpawnSyncOptionsWithBufferEncoding
 } from 'child_process'
-import spawn from 'cross-spawn'
+import * as spawn from 'cross-spawn'
 
 const bin = (name: string): string => {
   const isWin: boolean = /^win/.test(process.platform)
