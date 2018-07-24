@@ -9,6 +9,9 @@
   "scripts": {
     "build": "tsc"
   },
+  "dependencies": {
+    "cross-spawn": "6.0.5"
+  },
   "devDependencies": {
     "@types/node": "^10.5.2",
     "typescript": "^2.9.2"

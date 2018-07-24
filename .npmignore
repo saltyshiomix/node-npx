@@ -1,4 +1,3 @@
-node_modules
 .gitignore
 index.ts
 tsconfig.json
