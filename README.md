@@ -3,7 +3,7 @@
   <a href="https://www.npmjs.com/package/node-npx"><img src="https://img.shields.io/npm/dt/node-npx.svg"></a>
 </p>
 
-Execute local npm package binaries like a `npx` for Node.js.
+Execute **local** npm package binaries like a `npx` for Node.js.
 
 ## Install
 
@@ -19,7 +19,7 @@ import { npxAsync, npxSync } from 'node-npx'
 // use `node-npx` like `child_process.spawn`
 const proc = npxAsync('rimraf', ['dist', 'node_modules'], { cwd: '.' })
 
-// Support spawnSync
+// Support `child_process.spawnSync`
 npxSync('glob', ['*'], { stdio: 'inherit' })
 
 ...
