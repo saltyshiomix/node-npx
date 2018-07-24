@@ -1,5 +1,14 @@
 import { join } from 'path'
-import { spawnSync } from 'child_process'
+import {
+  spawn,
+  spawnSync,
+  ChildProcess,
+  SpawnSyncReturns,
+  SpawnOptions,
+  SpawnSyncOptions,
+  SpawnSyncOptionsWithStringEncoding,
+  SpawnSyncOptionsWithBufferEncoding
+} from 'child_process'
 
 const bin = (name: string): string => {
   const isWin: boolean = /^win/.test(process.platform)
@@ -7,6 +16,12 @@ const bin = (name: string): string => {
   return join(binPath, isWin ? `${name}.cmd` : name)
 }
 
-export default function(cmd: string, args?: string[], options?: object) {
-  spawnSync(bin(cmd), args, options)
+export function npx(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess {
+  return spawn(bin(command), args, options)
 }
+
+export function npxSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions|SpawnSyncOptionsWithStringEncoding|SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<string|Buffer> {
+  return spawnSync(bin(command), args, options)
+}
+
+export default npxSync
