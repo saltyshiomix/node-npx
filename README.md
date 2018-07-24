@@ -18,7 +18,7 @@ $ npm install --save node-npx
 ```js
 import npx from 'node-npx'
 
-// synchronously execute `./node_module/.bin/fkill`
+// synchronously execute `./node_module/.bin/fkill -f ':8080'`
 npx('fkill', ['-f', ':8080'])
 ```
 
