@@ -7,7 +7,8 @@
   "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "cross-spawn": "6.0.5"
