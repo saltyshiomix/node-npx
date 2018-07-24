@@ -12,7 +12,7 @@ import {
 
 const bin = (name: string): string => {
   const isWin: boolean = /^win/.test(process.platform)
-  const binPath: string = spawnSync('npm',['bin'],{cwd: process.cwd()}).stdout.toString().trim()
+  const binPath: string = spawnSync('npm', ['bin'], { cwd: process.cwd() }).stdout.toString().trim()
   return join(binPath, isWin ? `${name}.cmd` : name)
 }
 
