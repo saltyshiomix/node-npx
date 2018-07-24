@@ -16,7 +16,7 @@ const bin = (name: string): string => {
   return join(binPath, isWin ? `${name}.cmd` : name)
 }
 
-export function npx(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess {
+export function npxAsync(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess {
   return spawn(bin(command), args, options)
 }
 
