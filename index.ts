@@ -1,13 +1,7 @@
 import { join } from 'path'
-import {
-  ChildProcess,
-  SpawnSyncReturns,
-  SpawnOptions,
-  SpawnSyncOptions,
-  SpawnSyncOptionsWithStringEncoding,
-  SpawnSyncOptionsWithBufferEncoding
-} from 'child_process'
-import * as spawn from 'cross-spawn'
+import { ChildProcess } from 'child_process'
+import { spawn } from 'cross-spawn'
+import * as delay from 'delay'
 
 const bin = (name: string): string => {
   const isWin: boolean = /^win/.test(process.platform)
@@ -15,25 +9,41 @@ const bin = (name: string): string => {
   return join(binPath, isWin ? `${name}.cmd` : name)
 }
 
-async function npx(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): Promise<ChildProcess> {
+const npx = async (command: string, args?: ReadonlyArray<string>, options?: { cwd: string, stdio: string }): Promise<void> => {
   const childProcess: ChildProcess = spawn(bin(command), args, options)
 
-  childProcess.on('close', (code: number, signal: string) => {
-    if (code !== null) {
+  let closed: boolean = false
+  const exit = (code?: number) => {
+    closed = true
+    if (code) {
       process.exit(code)
+    }
+  }
+
+  const detectCode = (code: number, signal: string): number => {
+    if (code !== null) {
+      return code
     }
     if (signal) {
       if (signal === 'SIGKILL') {
-        process.exit(137)
+        return 137
       }
-      process.exit(1)
+      return 1
     }
-    process.exit(0)
+    return 0
+  }
+
+  childProcess.on('close', (code: number, signal: string) => {
+    const _code: number = detectCode(code, signal)
+    if (_code !== 0) {
+      exit(_code)
+    }
+    exit()
   })
 
   childProcess.on('error', (err: string) => {
     console.error(err)
-    process.exit(1)
+    exit(1)
   })
 
   const wrapper = (): void => {
@@ -45,13 +55,13 @@ async function npx(command: string, args?: ReadonlyArray<string>, options?: Spaw
   process.on('SIGTERM', wrapper)
   process.on('exit', wrapper)
 
-  return childProcess
-}
-
-function npxSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions|SpawnSyncOptionsWithStringEncoding|SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<string|Buffer> {
-  return spawn.sync(bin(command), args, options)
+  while (true) {
+    await delay(50)
+    if (closed) {
+      break
+    }
+  }
 }
 
 module.exports = npx
 module.exports.default = npx
-module.exports.sync = npxSync

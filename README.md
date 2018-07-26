@@ -1,7 +1,5 @@
-<p align="center">
-  <a href="https://www.npmjs.com/package/node-npx"><img src="https://img.shields.io/npm/v/node-npx.svg"></a>
-  <a href="https://www.npmjs.com/package/node-npx"><img src="https://img.shields.io/npm/dt/node-npx.svg"></a>
-</p>
+<a href="https://www.npmjs.com/package/node-npx"><img src="https://img.shields.io/npm/v/node-npx.svg"></a>
+<a href="https://www.npmjs.com/package/node-npx"><img src="https://img.shields.io/npm/dt/node-npx.svg"></a>
 
 Execute **local** npm package binaries like a `npx` for Node.js.
 
@@ -18,28 +16,23 @@ By default, `node-npx` executes a command asynchronously:
 ```js
 import npx from 'node-npx'
 
-npx('fkill', ['-f', ':8080']) // ./node_module/.bin/fkill -f ':8080'
-```
+// kill port 8080 process by `fkill-cli`
+npx('fkill', ['-f', ':8080'])
 
-Support `async/await` or sync function:
-
-```js
-(async () => {
-  await npx('rimraf', ['dist'])
-
-  npx.sync('glob', ['dist/**/*'], {
-    cwd: process.cwd(),
-    stdio: 'inherit'
-  })
-})()
+// clear dist folder and show contens were deleted
+npx('rimraf', ['dist'])
+npx.sync('glob', ['dist/**/*'], {
+  cwd: process.cwd(),
+  stdio: 'inherit'
+})
 ```
 
 ## API
 
-### `npx(command, args, options)`
+### `npx(command, args?, options?)`
 
-Same as `child_process.spawn(command, args, options)`.
+#### `command: string`
 
-### `npx.sync(command, args, options)`
+#### `args?: ReadonlyArray<string>`
 
-Same as `child_process.spawnSync(command, args, options)`.
+#### `options?: { cwd: string, stdio: string }`
