@@ -32,6 +32,12 @@ path-key@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
 
+resolve-as-bin@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/resolve-as-bin/-/resolve-as-bin-1.0.0.tgz#40280218e90d6ab5c220da9fcc6eb52e017d769a"
+  dependencies:
+    cross-spawn "6.0.5"
+
 semver@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"

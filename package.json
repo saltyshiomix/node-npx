@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "cross-spawn": "6.0.5",
-    "delay": "^3.0.0"
+    "delay": "^3.0.0",
+    "resolve-as-bin": "1.0.0"
   },
   "devDependencies": {
     "@types/node": "^10.5.2",

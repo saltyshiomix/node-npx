@@ -1,13 +1,7 @@
-import { join } from 'path'
 import { ChildProcess } from 'child_process'
 import { spawn } from 'cross-spawn'
+import bin from 'resolve-as-bin'
 import * as delay from 'delay'
-
-const bin = (name: string): string => {
-  const isWin: boolean = /^win/.test(process.platform)
-  const binPath: string = spawn.sync('npm', ['bin'], { cwd: process.cwd() }).stdout.toString().trim()
-  return join(binPath, isWin ? `${name}.cmd` : name)
-}
 
 const npx = async (command: string, args?: ReadonlyArray<string>, options?: { cwd: string, stdio: string }): Promise<void> => {
   const childProcess: ChildProcess = spawn(bin(command), args, options)
