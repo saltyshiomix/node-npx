@@ -17,6 +17,7 @@ const bin = (name: string): string => {
 
 async function npx(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): Promise<ChildProcess> {
   const childProcess: ChildProcess = spawn(bin(command), args, options)
+
   childProcess.on('close', (code: number, signal: string) => {
     if (code !== null) {
       process.exit(code)
@@ -29,10 +30,21 @@ async function npx(command: string, args?: ReadonlyArray<string>, options?: Spaw
     }
     process.exit(0)
   })
+
   childProcess.on('error', (err: string) => {
     console.error(err)
     process.exit(1)
   })
+
+  const wrapper = (): void => {
+    if (childProcess) {
+      childProcess.kill()
+    }
+  }
+  process.on('SIGINT', wrapper)
+  process.on('SIGTERM', wrapper)
+  process.on('exit', wrapper)
+
   return childProcess
 }
 
