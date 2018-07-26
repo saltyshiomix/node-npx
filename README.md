@@ -25,7 +25,7 @@ Support `async/await` or sync function:
 
 ```js
 (async () => {
-  await = npx('rimraf', ['dist'])
+  await npx('rimraf', ['dist'])
 
   npx.sync('glob', ['dist/**/*'], {
     cwd: process.cwd(),
