@@ -15,12 +15,31 @@ const bin = (name: string): string => {
   return join(binPath, isWin ? `${name}.cmd` : name)
 }
 
-export function npxAsync(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess {
-  return spawn(bin(command), args, options)
+async function npx(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): Promise<ChildProcess> {
+  const childProcess: ChildProcess = spawn(bin(command), args, options)
+  childProcess.on('close', (code: number, signal: string) => {
+    if (code !== null) {
+      process.exit(code)
+    }
+    if (signal) {
+      if (signal === 'SIGKILL') {
+        process.exit(137)
+      }
+      process.exit(1)
+    }
+    process.exit(0)
+  })
+  childProcess.on('error', (err: string) => {
+    console.error(err)
+    process.exit(1)
+  })
+  return childProcess
 }
 
-export function npxSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions|SpawnSyncOptionsWithStringEncoding|SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<string|Buffer> {
+function npxSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions|SpawnSyncOptionsWithStringEncoding|SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<string|Buffer> {
   return spawn.sync(bin(command), args, options)
 }
 
-export default npxSync
+module.exports = npx
+module.exports.default = npx
+module.exports.sync = npxSync

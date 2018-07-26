@@ -13,21 +13,33 @@ $ npm install --save node-npx
 
 ## Usage
 
-**default import**
+By default, `node-npx` executes a command asynchronously:
 
 ```js
 import npx from 'node-npx'
 
-// synchronously execute `./node_module/.bin/fkill -f ':8080'`
-npx('fkill', ['-f', ':8080'])
+npx('fkill', ['-f', ':8080']) // ./node_module/.bin/fkill -f ':8080'
 ```
 
-**named import**
+Support `async/await` or sync function:
 
 ```js
-import { npxAsync, npxSync } from 'node-npx'
+(async () => {
+  await = npx('rimraf', ['dist'])
 
-// use `node-npx` like `child_process.spawn` or `child_process.spawnSync`
-const proc = npxAsync('rimraf', ['dist', 'node_modules'], { cwd: '.' })
-npxSync('glob', ['*'], { stdio: 'inherit' })
+  npx.sync('glob', ['dist/**/*'], {
+    cwd: process.cwd(),
+    stdio: 'inherit'
+  })
+})()
 ```
+
+## API
+
+### `npx(command, args, options)`
+
+Same as `child_process.spawn(command, args, options)`.
+
+### `npx.sync(command, args, options)`
+
+Same as `child_process.spawnSync(command, args, options)`.
