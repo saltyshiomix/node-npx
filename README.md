@@ -11,8 +11,6 @@ $ npm install --save node-npx
 
 ## Usage
 
-By default, `node-npx` executes a command asynchronously:
-
 ```js
 import npx from 'node-npx'
 
