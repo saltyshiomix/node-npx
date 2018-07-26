@@ -21,7 +21,7 @@ npx('fkill', ['-f', ':8080'])
 
 // clear dist folder and show contens were deleted
 npx('rimraf', ['dist'])
-npx.sync('glob', ['dist/**/*'], {
+npx('glob', ['dist/**/*'], {
   cwd: process.cwd(),
   stdio: 'inherit'
 })
