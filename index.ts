@@ -3,59 +3,67 @@ import { spawn } from 'cross-spawn'
 import bin from 'resolve-as-bin'
 import * as delay from 'delay'
 
-const npx = async (command: string, args?: ReadonlyArray<string>, options?: { cwd: string, stdio: string }): Promise<void> => {
-  const childProcess: ChildProcess = spawn(bin(command), args, options)
+const createNpx = async (isSync: boolean): Promise<(command: string, args?: ReadonlyArray<string>, options?: any) => Promise<void | ChildProcess>> => {
+  return async (command: string, args?: ReadonlyArray<string>, options?: any): Promise<void|ChildProcess> => {
+    const childProcess: ChildProcess = spawn(bin(command), args, options)
 
-  let closed: boolean = false
-  const exit = (code?: number) => {
-    closed = true
-    if (code) {
-      process.exit(code)
-    }
-  }
-
-  const detectCode = (code: number, signal: string): number => {
-    if (code !== null) {
-      return code
-    }
-    if (signal) {
-      if (signal === 'SIGKILL') {
-        return 137
+    let closed: boolean = false
+    const exit = (code?: number) => {
+      closed = true
+      if (code) {
+        process.exit(code)
       }
-      return 1
     }
-    return 0
-  }
 
-  childProcess.on('close', (code: number, signal: string) => {
-    const _code: number = detectCode(code, signal)
-    if (_code !== 0) {
-      exit(_code)
+    const detectCode = (code: number, signal: string): number => {
+      if (code !== null) {
+        return code
+      }
+      if (signal) {
+        if (signal === 'SIGKILL') {
+          return 137
+        }
+        return 1
+      }
+      return 0
     }
-    exit()
-  })
 
-  childProcess.on('error', (err: string) => {
-    console.error(err)
-    exit(1)
-  })
+    childProcess.on('close', (code: number, signal: string) => {
+      const _code: number = detectCode(code, signal)
+      if (_code !== 0) {
+        exit(_code)
+      }
+      exit()
+    })
 
-  const wrapper = (): void => {
-    if (childProcess) {
-      childProcess.kill()
+    childProcess.on('error', (err: string) => {
+      console.error(err)
+      exit(1)
+    })
+
+    const wrapper = (): void => {
+      if (childProcess) {
+        childProcess.kill()
+      }
     }
-  }
-  process.on('SIGINT', wrapper)
-  process.on('SIGTERM', wrapper)
-  process.on('exit', wrapper)
+    process.on('SIGINT', wrapper)
+    process.on('SIGTERM', wrapper)
+    process.on('exit', wrapper)
 
-  while (true) {
-    await delay(50)
-    if (closed) {
-      break
+    if (isSync) {
+      while (true) {
+        await delay(50)
+        if (closed) {
+          break
+        }
+      }
+    } else {
+      return childProcess
     }
   }
 }
 
-module.exports = npx
-module.exports.default = npx
+module.exports = createNpx(false)
+module.exports.default = createNpx(false)
+module.exports.npx = createNpx(false)
+module.exports.npxSync = createNpx(true)

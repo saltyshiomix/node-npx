@@ -12,25 +12,23 @@ $ npm install --save node-npx
 ## Usage
 
 ```js
+// default import (asynchronously)
 import npx from 'node-npx'
 
-// kill port 8080 process by `fkill-cli`
-npx('fkill', ['-f', ':8080'])
+// named import is also supported
+import { npx, npxSync } from 'node-npx'
 
-// clear dist folder and show contens were deleted
-npx('rimraf', ['dist'])
-npx('glob', ['dist/**/*'], {
+
+// kill port 8080
+const childProcess = npx('fkill', ['-f', ':8080'])
+childProcess.on('exit', () => {
+  console.log('port 8080 was killed!')
+})
+
+// remove dist folder and list contents
+npxSync('rimraf', ['dist'])
+npxSync('glob', ['dist/**/*'], {
   cwd: process.cwd(),
   stdio: 'inherit'
 })
 ```
-
-## API
-
-### `npx(command, args?, options?)`
-
-#### `command: string`
-
-#### `args?: ReadonlyArray<string>`
-
-#### `options?: { cwd: string, stdio: string }`
