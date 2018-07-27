@@ -31,4 +31,8 @@ npxSync('glob', ['dist/**/*'], {
   cwd: process.cwd(),
   stdio: 'inherit'
 })
+
+// both relative and absolute paths are also supported
+npxSync('./relative/path/to/my-binary')
+npxSync('/absolute/path/to/my-binary')
 ```

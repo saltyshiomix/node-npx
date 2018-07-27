@@ -3,7 +3,7 @@ import { spawn } from 'cross-spawn'
 import bin from 'resolve-as-bin'
 import * as delay from 'delay'
 
-const createNpx = async (isSync: boolean): Promise<(command: string, args?: ReadonlyArray<string>, options?: any) => Promise<void | ChildProcess>> => {
+const createNpx = (isSync: boolean): (command: string, args?: ReadonlyArray<string>, options?: any) => Promise<void|ChildProcess> => {
   return async (command: string, args?: ReadonlyArray<string>, options?: any): Promise<void|ChildProcess> => {
     const childProcess: ChildProcess = spawn(bin(command), args, options)
 
