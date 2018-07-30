@@ -16,7 +16,7 @@ cross-spawn@6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-delay@^3.0.0:
+delay@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/delay/-/delay-3.0.0.tgz#97fc5c21028e20616e822ab11838c648808534eb"
 
