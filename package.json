@@ -6,6 +6,18 @@
   "repository": "git@github.com:saltyshiomix/node-npx.git",
   "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/saltyshiomix/node-npx",
+  "keywords": [
+    "npx",
+    "node",
+    "spawn",
+    "npm",
+    "node-npx"
+  ],
+  "bugs": {
+    "url": "https://github.com/saltyshiomix/node-npx/issues",
+    "email": "shiono.yoshihide@gmail.com"
+  },
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"
