@@ -3,13 +3,10 @@ import { spawn } from 'cross-spawn'
 import bin from 'resolve-as-bin'
 import * as delay from 'delay'
 
-let closed: boolean = false
-
 const npx = (command: string, args?: ReadonlyArray<string>, options?: any): ChildProcess => {
   const childProcess: ChildProcess = spawn(bin(command), args, options)
 
   const exit = (code?: number) => {
-    closed = true
     if (code) {
       process.exit(code)
     }
@@ -54,7 +51,52 @@ const npx = (command: string, args?: ReadonlyArray<string>, options?: any): Chil
 }
 
 const npxSync = async (command: string, args?: ReadonlyArray<string>, options?: any): Promise<void> => {
-  npx(command, args, options)
+  let closed: boolean = false
+
+  const childProcess: ChildProcess = spawn(bin(command), args, options)
+
+  const exit = (code?: number) => {
+    closed = true
+    if (code) {
+      process.exit(code)
+    }
+  }
+
+  const detectCode = (code: number, signal: string): number => {
+    if (code !== null) {
+      return code
+    }
+    if (signal) {
+      if (signal === 'SIGKILL') {
+        return 137
+      }
+      return 1
+    }
+    return 0
+  }
+
+  childProcess.on('close', (code: number, signal: string) => {
+    const _code: number = detectCode(code, signal)
+    if (_code !== 0) {
+      exit(_code)
+    }
+    exit()
+  })
+
+  childProcess.on('error', (err: string) => {
+    console.error(err)
+    exit(1)
+  })
+
+  const wrapper = (): void => {
+    if (childProcess) {
+      childProcess.kill()
+    }
+  }
+  process.on('SIGINT', wrapper)
+  process.on('SIGTERM', wrapper)
+  process.on('exit', wrapper)
+
   while (true) {
     await delay(50)
     if (closed) {
