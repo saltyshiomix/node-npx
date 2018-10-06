@@ -1,6 +1,6 @@
 {
   "name": "node-npx",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A tiny npx alternative for Node.js, which executes npm package binaries",
   "main": "index.js",
   "repository": "git@github.com:saltyshiomix/node-npx.git",
