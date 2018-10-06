@@ -18,6 +18,9 @@
     "url": "https://github.com/saltyshiomix/node-npx/issues",
     "email": "shiono.yoshihide@gmail.com"
   },
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"
