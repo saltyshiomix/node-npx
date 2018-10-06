@@ -1,6 +1,6 @@
 {
   "name": "node-npx",
-  "version": "1.2.0",
+  "version": "1.3.1",
   "description": "A tiny npx alternative for Node.js, which executes npm package binaries",
   "main": "index.js",
   "repository": "git@github.com:saltyshiomix/node-npx.git",
@@ -18,17 +18,20 @@
     "url": "https://github.com/saltyshiomix/node-npx/issues",
     "email": "shiono.yoshihide@gmail.com"
   },
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "cross-spawn": "6.0.5",
-    "delay": "3.0.0",
+    "delay": "4.0.1",
     "resolve-as-bin": "1.3.0"
   },
   "devDependencies": {
-    "@types/node": "^10.5.2",
-    "typescript": "^2.9.2"
+    "@types/node": "^10.11.4",
+    "typescript": "^3.1.1"
   }
 }

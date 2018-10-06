@@ -1,7 +1,13 @@
+import { existsSync } from 'fs'
 import { ChildProcess } from 'child_process'
 import { spawn } from 'cross-spawn'
-import bin from 'resolve-as-bin'
-import * as delay from 'delay'
+import resolve from 'resolve-as-bin'
+import delay from 'delay'
+
+const bin = (command: string): string => {
+  const possibleBin: string = resolve(command)
+  return existsSync(possibleBin) ? possibleBin : command
+}
 
 const npx = (command: string, args?: ReadonlyArray<string>, options?: any): ChildProcess => {
   const childProcess: ChildProcess = spawn(bin(command), args, options)
