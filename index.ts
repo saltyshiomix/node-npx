@@ -26,13 +26,13 @@ const detectCode = (code: number, signal: string): number => {
   return 0;
 }
 
-const exit = (code?: number) => {
-  if (code) {
-    process.exit(code);
-  }
-}
-
 const npx = (command: string, args?: string[], options?: SpawnOptions): ChildProcess => {
+  const exit = (code?: number) => {
+    if (code) {
+      process.exit(code);
+    }
+  }
+
   const proc: ChildProcess = spawn(bin(command), args, options);
 
   proc.on('close', (code: number, signal: string) => {
@@ -62,6 +62,13 @@ const npx = (command: string, args?: string[], options?: SpawnOptions): ChildPro
 
 const npxSync = async (command: string, args?: string[], options?: SpawnSyncOptions): Promise<void> => {
   let closed: boolean = false;
+
+  const exit = (code?: number) => {
+    closed = true
+    if (code) {
+      process.exit(code)
+    }
+  }
 
   const proc: ChildProcess = spawn(bin(command), args, options);
 
