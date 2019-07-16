@@ -1,18 +1,22 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2017",
     "module": "commonjs",
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "es2017",
+    ],
     "moduleResolution": "node",
+    "declaration": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
-    "lib": [
-      "es2015",
-      "es2016"
-    ]
-  }
+  },
 }
