@@ -2,12 +2,19 @@
 # yarn lockfile v1
 
 
-"@types/node@^12.6.4":
+"@types/cross-spawn@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@types/cross-spawn/-/cross-spawn-6.0.0.tgz#320aaf1d1a12979f1b84fe7a5590a7e860bf3a80"
+  integrity sha512-evp2ZGsFw9YKprDbg8ySgC9NA15g3YgiI8ANkGmKKvvi0P2aDGYLPxQIC5qfeKNUOe3TjABVGuah6omPRpIYhg==
+  dependencies:
+    "@types/node" "*"
+
+"@types/node@*", "@types/node@^12.6.4":
   version "12.6.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.6.4.tgz#e0b5ac3ccbf183cd3c230967c323632d6cf927ae"
   integrity sha512-ZKrDzI6KhrqtLpccI1YxMh4d+qzNnftNtp6iL9c4mLTNgzguFu7VR7pXH/C/MfzikMeoXjvISL9mlIGNGGDXDg==
 
-cross-spawn@6.0.5, cross-spawn@^6.0.5:
+cross-spawn@^6.0.5:
   version "6.0.5"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
   integrity sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==
@@ -38,12 +45,12 @@ path-key@^2.0.1:
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
   integrity sha1-QRyttXTFoUDTpLGRDUDYDMn0C0A=
 
-resolve-as-bin@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/resolve-as-bin/-/resolve-as-bin-1.3.0.tgz#b967bfbc995906db849d3f71198913af1d2a1a0c"
-  integrity sha512-INEBe/Z6tcRD0iA+DXHmwSgyLa2R1iFBNXxf4IAhqbyKZaLBsWpyHoXppo3jNwnx0dxxR+zQ1RKkGorLvdPvNA==
+resolve-as-bin@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/resolve-as-bin/-/resolve-as-bin-2.1.0.tgz#25638f52e13203eae97125ab26f54082ab98c6e1"
+  integrity sha512-ileUuPIOP+xj+GS/d/EbB2XqRA8T2IeZTFkMggNIW2Mo72VyBMbq+HvIAxdW0ED9D44aEzJwHvUtbMm2PJT5Kw==
   dependencies:
-    cross-spawn "6.0.5"
+    cross-spawn "^6.0.5"
 
 semver@^5.5.0:
   version "5.5.0"
