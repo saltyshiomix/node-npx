@@ -95,8 +95,7 @@ const npxSync = async (command: string, args?: string[], options?: SpawnSyncOpti
 
 // require support
 module.exports = npx;
-
-export default npx;
+module.exports.default = npx;
 
 export {
   npx,
