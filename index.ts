@@ -44,7 +44,8 @@ const npx = (command: string, args?: string[], options?: SpawnOptions): ChildPro
   });
 
   proc.on('error', (err: any) => {
-    throw err;
+    console.error(err);
+    process.exit(1);
   });
 
   const wrapper = (): void => {
@@ -73,7 +74,8 @@ const npxSync = async (command: string, args?: string[], options?: SpawnSyncOpti
   });
 
   proc.on('error', (err: any) => {
-    throw err;
+    console.error(err);
+    process.exit(1);
   });
 
   const wrapper = (): void => {
