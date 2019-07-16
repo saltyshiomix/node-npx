@@ -38,7 +38,7 @@ path-key@^2.0.1:
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
   integrity sha1-QRyttXTFoUDTpLGRDUDYDMn0C0A=
 
-resolve-as-bin@1.3.0:
+resolve-as-bin@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/resolve-as-bin/-/resolve-as-bin-1.3.0.tgz#b967bfbc995906db849d3f71198913af1d2a1a0c"
   integrity sha512-INEBe/Z6tcRD0iA+DXHmwSgyLa2R1iFBNXxf4IAhqbyKZaLBsWpyHoXppo3jNwnx0dxxR+zQ1RKkGorLvdPvNA==
